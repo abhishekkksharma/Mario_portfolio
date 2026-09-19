@@ -32,64 +32,105 @@ function BrowserLayout({ children }: BrowserLayoutProps) {
   }, []);
 
   return (
-    <div className="h-screen w-full flex items-center justify-center p-4">
+    <div className="flex h-screen w-full items-center justify-center overflow-hiddena p-2 sm:p-4 lg:pt-0 pt-10">
       <div
         className="
           relative
-          w-full max-w-5xl
-          h-[680px] max-h-[85vh]
-          flex flex-col
+          flex h-full w-full flex-col
           overflow-hidden
-          rounded-[22px]
-          border-[3px] border-black
+          rounded-[16px] border-[3px] border-black
           bg-white
-          shadow-[8px_8px_0px_#111]
+          shadow-[5px_5px_0px_#111]
+          sm:h-[680px]
+          sm:max-h-[85vh]
+          sm:max-w-5xl
+          sm:rounded-[22px]
+          sm:shadow-[8px_8px_0px_#111]
         "
       >
         {/* Browser Header */}
-        <div className="relative h-14 shrink-0 bg-[#d936b8] border-b-[3px] border-black flex items-center px-5">
+        <div
+          className="
+            relative flex h-11 shrink-0 items-center
+            border-b-[3px] border-black
+            bg-[#d936b8]
+            px-2
+            sm:h-14 sm:px-5
+          "
+        >
           {/* Traffic Lights */}
-          <div className="flex gap-3 z-10 shrink-0 mr-6">
-            <span className="w-4 h-4 rounded-full border-[3px] border-black bg-[#e95dcc]" />
-            <span className="w-4 h-4 rounded-full border-[3px] border-black bg-[#f178d7]" />
-            <span className="w-4 h-4 rounded-full border-[3px] border-black bg-[#f5a0e4]" />
+          <div
+            className="
+              z-10 mr-2 flex shrink-0 gap-1.5
+              sm:mr-6 sm:gap-3
+            "
+          >
+            <span className="h-3 w-3 rounded-full border-2 border-black bg-[#e95dcc] sm:h-4 sm:w-4 sm:border-[3px]" />
+            <span className="h-3 w-3 rounded-full border-2 border-black bg-[#f178d7] sm:h-4 sm:w-4 sm:border-[3px]" />
+            <span className="h-3 w-3 rounded-full border-2 border-black bg-[#f5a0e4] sm:h-4 sm:w-4 sm:border-[3px]" />
           </div>
 
-          {/* Left Tabs */}
-          <div className="flex items-end h-full gap-1">
+          {/* Tabs */}
+          <div
+            className="
+              flex h-full min-w-0 flex-1
+              items-end gap-1
+              overflow-x-auto
+              no-scrollbar
+            "
+          >
             {Object.entries(tabss).map(([tabName, tabData]) => {
               const isActive = path === tabData.link;
+
               return (
                 <Link
                   key={tabName}
                   href={tabData.link}
                   className={`
-                    w-32
-                    h-10
-                    ${isActive ? "bg-[#ed5dcc]" : "bg-[#d936b8]"}
-                    border-[3px] border-black
-                    border-b-0
-                    rounded-t-xl
-                    flex items-center justify-center
-                    px-2
-                    font-pixel
-                    font-semibold
-                    cursor-pointer
-                    hover:bg-[#e95dcc]
+                    flex h-8 shrink-0 items-center justify-center
+                    rounded-t-lg border-[2px] border-b-0 border-black
+                    px-3
+                    font-pixel text-[10px] font-semibold
                     transition-colors
+                    hover:bg-[#e95dcc]
+
+                    sm:h-10
+                    sm:w-32
+                    sm:rounded-t-xl
+                    sm:border-[3px]
+                    sm:border-b-0
+                    sm:px-2
+                    sm:text-base
+
+                    ${
+                      isActive
+                        ? "bg-[#ed5dcc] text-zinc-100" 
+                        : "bg-[#d936b8]"
+                    }
                   `}
                 >
-                  <p>{tabName}</p>
+                  {tabName}
                 </Link>
               );
             })}
           </div>
 
-          {/* Window Button */}
-          <div className="ml-auto z-10 shrink-0">
+          {/* Close Button */}
+          <div className="z-10 ml-2 shrink-0 sm:ml-auto">
             <Link
               href="/"
-              className="w-8 h-8 rounded-full border-[3px] border-black bg-[#e95dcc] flex items-center justify-center font-bold hover:bg-[#f178d7] transition-colors"
+              className="
+                flex h-7 w-7 items-center justify-center
+                rounded-full border-2 border-black
+                bg-[#e95dcc]
+                text-xs font-bold
+                transition-colors
+                hover:bg-[#f178d7]
+
+                sm:h-8 sm:w-8
+                sm:border-[3px]
+                sm:text-base
+              "
             >
               X
             </Link>
@@ -97,38 +138,119 @@ function BrowserLayout({ children }: BrowserLayoutProps) {
         </div>
 
         {/* Browser Toolbar */}
-        <div className="h-14 shrink-0 bg-[#ed5dcc] border-b-[3px] border-black flex items-center gap-2 px-4">
+        <div
+          className="
+            flex h-12 shrink-0 items-center gap-1.5
+            border-b-[3px] border-black
+            bg-[#ed5dcc]
+            px-2
+
+            sm:h-14 sm:gap-2 sm:px-4
+          "
+        >
           {/* Navigation */}
-          <div className="flex items-center justify-center text-2xl font-bold">
-            <p className="w-7 h-7 flex items-center justify-center hover:bg-pink-300 rounded-full">
+          <div className="flex shrink-0 items-center justify-center text-lg font-bold sm:text-2xl">
+            <button
+              type="button"
+              className="
+                flex h-7 w-7 items-center justify-center
+                rounded-full
+                hover:bg-pink-300
+                sm:h-8 sm:w-8
+              "
+            >
               ←
-            </p>
-            <p className="w-7 h-7 flex items-center justify-center hover:bg-pink-300 rounded-full">
+            </button>
+
+            <button
+              type="button"
+              className="
+                hidden h-7 w-7 items-center justify-center
+                rounded-full
+                hover:bg-pink-300
+                sm:flex sm:h-8 sm:w-8
+              "
+            >
               →
-            </p>
-            <p className="w-7 h-7 flex items-center justify-center hover:bg-pink-300 rounded-full">
+            </button>
+
+            <button
+              type="button"
+              className="
+                flex h-7 w-7 items-center justify-center
+                rounded-full
+                hover:bg-pink-300
+                sm:h-8 sm:w-8
+              "
+            >
               ↻
-            </p>
+            </button>
           </div>
 
           {/* Address Bar */}
-          <div className="flex-1 h-10 bg-white border-[3px] border-black rounded-full flex items-center px-3">
-            <div className="w-5 h-5 rounded-full border-[3px] border-black relative shrink-0">
-              <span className="absolute w-2 h-[3px] bg-black rotate-45 right-[-5px] bottom-[-2px]" />
+          <div
+            className="
+              flex h-8 min-w-0 flex-1 items-center
+              rounded-full border-2 border-black
+              bg-white px-2
+
+              sm:h-10 sm:border-[3px] sm:px-3
+            "
+          >
+            {/* Search Icon */}
+            <div
+              className="
+                relative h-4 w-4 shrink-0
+                rounded-full border-2 border-black
+
+                sm:h-5 sm:w-5 sm:border-[3px]
+              "
+            >
+              <span
+                className="
+                  absolute bottom-[-2px] right-[-4px]
+                  h-[2px] w-1.5
+                  rotate-45 bg-black
+
+                  sm:h-[3px] sm:w-2
+                "
+              />
             </div>
 
-            <span className="ml-3 font-pixel text-xs text-gray-500">
+            <span
+              className="
+                ml-2 min-w-0 truncate
+                font-pixel text-[9px] text-gray-500
+
+                sm:ml-3 sm:text-xs
+              "
+            >
               {origin}
               {path}
             </span>
           </div>
 
           {/* Browser Button */}
-          <div className="w-8 h-8 rounded-full border-[3px] border-black bg-[#e95dcc]" />
+          <div
+            className="
+              h-7 w-7 shrink-0
+              rounded-full border-2 border-black
+              bg-[#e95dcc]
+
+              sm:h-8 sm:w-8 sm:border-[3px]
+            "
+          />
         </div>
 
         {/* Page Content */}
-        <main className="flex-1 min-h-0 overflow-y-auto no-scrollbar bg-white">
+        <main
+          className="
+            min-h-0 flex-1
+            overflow-y-auto overflow-x-hidden
+            bg-white
+            no-scrollbar
+          "
+        >
           {children}
         </main>
       </div>
