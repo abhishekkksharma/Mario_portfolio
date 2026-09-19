@@ -32,7 +32,7 @@ function BrowserLayout({ children }: BrowserLayoutProps) {
   }, []);
 
   return (
-    <div className="flex h-screen w-full items-center justify-center overflow-hiddena p-2 sm:p-4 lg:pt-0 pt-10">
+    <div className="flex h-screen w-full items-center justify-center overflow-hiddena p-2 sm:p-4 lg:py-0 py-12">
       <div
         className="
           relative
