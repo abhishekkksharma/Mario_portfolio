@@ -60,9 +60,9 @@ function Contact() {
   };
 
   return (
-    <div className="mx-auto w-full max-w-2xl px-4 py-5 font-pixel sm:px-6 sm:py-6 md:px-8">
+    <div className="mx-auto w-full max-w-2xl px-4 py-2 font-pixel sm:px-6 sm:py-3 md:px-8">
       {/* Header */}
-      <div className="mb-4 flex items-center gap-3 border-b-2 border-pink-200 pb-3 sm:mb-5">
+      <div className="mb-2 flex items-center gap-3 border-b-2 border-pink-200 pb-1 sm:mb-3">
         <Image
           className="h-9 w-9 shrink-0 object-contain sm:h-10 sm:w-10"
           src={MessageIMG}
@@ -127,7 +127,7 @@ function Contact() {
       >
         {/* Name */}
         <div>
-          <label className="mb-1 block text-xs font-bold text-pink-950 sm:mb-1.5 sm:text-sm">
+          <label className="mb-1 block text-xs font-bold text-pink-950 sm:mb-1 sm:text-sm">
             Your Name <span className="text-pink-600">*</span>
           </label>
 

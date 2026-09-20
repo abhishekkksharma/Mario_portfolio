@@ -71,7 +71,7 @@ function About() {
               Shreya Yadav
             </p>
 
-            <p className="font-pixel text-sm sm:text-base">
+            <p className="font-pixel text-sm sm:text-base ">
               Software Development Eng. in Test
             </p>
           </div>
@@ -113,7 +113,7 @@ function About() {
         </section>
 
         {/* Skills */}
-        <section>
+        {/* <section>
           <p className="font-pixel text-xl text-pink-400 sm:text-2xl">
             Skills
           </p>
@@ -131,7 +131,7 @@ function About() {
               </p>
             ))}
           </div>
-        </section>
+        </section> */}
 
         {/* Education */}
         <section>
@@ -141,7 +141,8 @@ function About() {
 
           <hr className="my-2 border-zinc-300" />
 
-          <div className="flex flex-col gap-1 font-pixel sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <div className="flex flex-col gap-1 font-pixel sm:flex-row sm:items-center sm:justify-between">
             <p className="text-sm font-semibold sm:text-base">
               Chitkara University{" "}
               <span className="font-normal italic text-xs text-zinc-500 sm:text-sm">
@@ -152,6 +153,10 @@ function About() {
             <p className="text-sm font-semibold sm:text-base">
               2022-2026
             </p>
+          </div>
+          <div className="font-pixel py-1">
+            <p>Bachelor's of Engineering - CSE</p>
+          </div>
           </div>
         </section>
 
@@ -174,9 +179,12 @@ function About() {
               </p>
             </div>
 
-            <p className="mt-1 font-pixel text-sm italic sm:text-base">
+            <div className="flex justify-between mt-1 font-pixel text-sm italic sm:text-base">
+              <p className="">
               Software Tester
             </p>
+            <p className="text-xs text-zinc-600 sm:text-sm">May 2026 - Present</p>
+            </div>
 
             <p className="py-2 font-pixel text-sm leading-relaxed text-gray-700 sm:text-base">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga quo

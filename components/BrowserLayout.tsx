@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { Maximize2, Minimize2 } from "lucide-react"
 
 interface BrowserLayoutProps {
   children: React.ReactNode;
@@ -11,6 +12,22 @@ interface BrowserLayoutProps {
 function BrowserLayout({ children }: BrowserLayoutProps) {
   const [origin, setOrigin] = useState("");
   const path = usePathname();
+
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  const toggleFullscreen = async () => {
+    try {
+      if (!document.fullscreenElement) {
+        await document.documentElement.requestFullscreen();
+        setIsFullscreen(true);
+      } else {
+        await document.exitFullscreen();
+        setIsFullscreen(false);
+      }
+    } catch (error) {
+      console.error("Fullscreen error:", error);
+    }
+  };
 
   const tabss = {
     About: {
@@ -38,10 +55,10 @@ function BrowserLayout({ children }: BrowserLayoutProps) {
           relative
           flex h-full w-full max-h-full flex-col
           overflow-hidden
-          rounded-[16px] border-[3px] border-black
+          rounded-2xl border-[3px] border-black
           bg-white
           shadow-[4px_4px_0px_#111]
-          sm:h-[680px]
+          sm:h-170
           sm:max-h-[85vh]
           sm:max-w-5xl
           sm:rounded-[22px]
@@ -88,7 +105,7 @@ function BrowserLayout({ children }: BrowserLayoutProps) {
                   href={tabData.link}
                   className={`
                     flex h-8 shrink-0 items-center justify-center
-                    rounded-t-lg border-[2px] border-b-0 border-black
+                    rounded-t-lg border-2 border-b-0 border-black
                     px-3
                     font-pixel text-[10px] font-semibold
                     transition-colors
@@ -102,11 +119,7 @@ function BrowserLayout({ children }: BrowserLayoutProps) {
                     sm:px-2
                     sm:text-base
 
-                    ${
-                      isActive
-                        ? "bg-[#ed5dcc] text-zinc-100" 
-                        : "bg-[#d936b8]"
-                    }
+                    ${isActive ? "bg-[#ed5dcc] text-zinc-100" : "bg-[#d936b8]"}
                   `}
                 >
                   {tabName}
@@ -115,25 +128,45 @@ function BrowserLayout({ children }: BrowserLayoutProps) {
             })}
           </div>
 
-          {/* Close Button */}
-          <div className="z-10 ml-2 shrink-0 sm:ml-auto">
-            <Link
-              href="/"
+          {/*  Buttons */}
+          <div className="flex flex-row gap-4 items-center">
+            <button
+              type="button"
+              onClick={toggleFullscreen}
               className="
-                flex h-7 w-7 items-center justify-center
-                rounded-full border-2 border-black
+                rounded border-2 border-black
                 bg-[#e95dcc]
                 text-xs font-bold
                 transition-colors
                 hover:bg-[#f178d7]
-
-                sm:h-8 sm:w-8
-                sm:border-[3px]
-                sm:text-base
               "
+              aria-label={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
             >
-              X
-            </Link>
+              {isFullscreen ? (
+                <Minimize2 className="w-6 h-6 p-0.5 text-black" />
+              ) : (
+                <Maximize2 className="w-6 h-6 p-0.5 text-black" />
+              )}
+            </button>
+
+            <div className="z-10 ml-2 shrink-0 sm:ml-auto">
+              <Link
+                href="/"
+                className="
+            flex h-7 w-7 items-center justify-center
+            rounded-full border-2 border-black
+            bg-[#e95dcc]
+            text-xs font-bold
+            transition-colors
+            hover:bg-[#f178d7]
+            sm:h-8 sm:w-8
+            sm:border-[3px]
+            sm:text-base
+          "
+              >
+                X
+              </Link>
+            </div>
           </div>
         </div>
 
@@ -208,11 +241,11 @@ function BrowserLayout({ children }: BrowserLayoutProps) {
             >
               <span
                 className="
-                  absolute bottom-[-2px] right-[-4px]
-                  h-[2px] w-1.5
+                  absolute -bottom-0.5 -right-1
+                  h-0.5 w-1.5
                   rotate-45 bg-black
 
-                  sm:h-[3px] sm:w-2
+                  sm:h-0.75 sm:w-2
                 "
               />
             </div>

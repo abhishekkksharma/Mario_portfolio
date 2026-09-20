@@ -1,8 +1,13 @@
 import React from 'react'
+import GithubContributions from './GithubContributions'
+import TechStack from './TechStack'
 
 function Skills() {
   return (
-    <div>Skills</div>
+    <div>
+      <TechStack/>
+      <GithubContributions/>
+    </div>
   )
 }
 
