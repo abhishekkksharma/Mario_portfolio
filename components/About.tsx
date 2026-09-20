@@ -16,7 +16,7 @@ function About() {
     <div className="min-h-full w-full overflow-x-hidden bg-white">
       {/* Banner */}
       <div className="relative">
-        <div className="relative h-40 w-full overflow-hidden sm:h-48 md:h-56">
+        <div className="relative h-36 w-full overflow-hidden sm:h-44 md:h-48">
           <Image
             src={DesktopBG}
             alt="Shreya workspace"
@@ -27,53 +27,34 @@ function About() {
         </div>
 
         {/* Profile */}
-        <div
-  className="
-    relative
-    -mt-[22px]
-    flex flex-col items-center
-    px-5
-    sm:absolute sm:left-6 sm:-bottom-[82px]
-    sm:mt-0 sm:flex-row sm:items-center
-    md:left-10
-  "
->
-          <div
-            className="
-              h-28 w-28 shrink-0
-              rounded-full bg-white p-1
-              sm:h-32 sm:w-32
-              md:h-36 md:w-36
-            "
-          >
-            <Image
-              src={Shreya}
-              alt="Shreya"
-              width={144}
-              height={144}
-              className="h-full w-full rounded-full object-cover object-top"
-            />
-          </div>
-
-          <div
-            className="
-              mt-3 text-center
-              sm:mt-0 sm:pl-3 sm:text-left
-            "
-          >
-            <p
+        <div className="px-4 sm:px-6">
+          <div className="flex flex-col items-center text-center sm:flex-row sm:items-end sm:text-left gap-3 -mt-14 sm:-mt-16">
+            <div
               className="
-                font-pixel text-2xl text-black
-                sm:pt-14 sm:text-3xl
-                md:text-4xl
+                relative h-28 w-28 shrink-0
+                rounded-full border-4 border-white bg-white 
+                sm:h-32 sm:w-32
+                md:h-34 md:w-34
               "
             >
-              Shreya Yadav
-            </p>
+              <Image
+                src={Shreya}
+                alt="Shreya"
+                fill
+                priority
+                className="rounded-full object-cover object-top p-0.5"
+              />
+            </div>
 
-            <p className="font-pixel text-sm sm:text-base ">
-              Software Development Eng. in Test
-            </p>
+            <div className="pb-1">
+              <h1 className="font-pixel text-xl font text-black sm:text-2xl md:text-3xl leading-tight">
+                Shreya Yadav
+              </h1>
+
+              <p className="font-pixel text-xs text-zinc-700 sm:text-sm md:text-base mt-0.5">
+                Software Development Eng. in Test
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -82,10 +63,9 @@ function About() {
       <div
         className="
           flex flex-col gap-6
-          px-5 pb-8 pt-8
-          sm:px-8 sm:pt-24
+          px-5 pb-8 pt-6
+          sm:px-8
           md:px-10
-          lg:px-15 lg:pt-28
         "
       >
         {/* About */}

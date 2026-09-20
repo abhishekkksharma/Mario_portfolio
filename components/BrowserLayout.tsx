@@ -185,6 +185,7 @@ function BrowserLayout({ children }: BrowserLayoutProps) {
           <div className="flex shrink-0 items-center justify-center text-lg font-bold sm:text-2xl">
             <button
               type="button"
+              onClick={() => window.history.back()}
               className="
                 flex h-7 w-7 items-center justify-center
                 rounded-full
@@ -197,6 +198,7 @@ function BrowserLayout({ children }: BrowserLayoutProps) {
 
             <button
               type="button"
+              onClick={() => window.history.forward()}
               className="
                 hidden h-7 w-7 items-center justify-center
                 rounded-full
@@ -209,6 +211,7 @@ function BrowserLayout({ children }: BrowserLayoutProps) {
 
             <button
               type="button"
+              onClick={() => window.location.reload()}
               className="
                 flex h-7 w-7 items-center justify-center
                 rounded-full

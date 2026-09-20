@@ -9,12 +9,14 @@ interface BrowserLayoutProps {
   children: React.ReactNode;
   tabName: string;
   theme?: "pink" | "yellow";
+  link?: string;
 }
 
 function SingleTabBrowser({
   children,
   tabName,
   theme = "pink",
+  link
 }: BrowserLayoutProps) {
   const [origin, setOrigin] = useState("");
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -188,7 +190,7 @@ function SingleTabBrowser({
             {/* Close */}
             <div className="z-10 shrink-0">
               <Link
-                href="/"
+                href={`${link? link: "/"}`}
                 className={`
                   flex h-7 w-7 items-center justify-center
                   rounded-full border-2 border-black

@@ -14,7 +14,7 @@ export default function ProjectsPage() {
       </div>
 
       <div className="w-full md:w-2/3 ">
-        <SingleTabBrowser tabName="Projects" theme="yellow">
+        <SingleTabBrowser link="/info" tabName="Projects" theme="yellow">
           <Projects />
         </SingleTabBrowser>
       </div>

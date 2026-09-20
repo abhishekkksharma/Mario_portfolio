@@ -3,7 +3,7 @@ import React from 'react'
 
 function HomePage() {
   return (
-    <div className="min-h-[100dvh] flex flex-col items-center justify-center py-12 px-6">
+    <div className="min-h-dvh flex flex-col items-center justify-center py-12 -mt-8 px-6">
       <div className="flex flex-col items-center text-center font-pixel text-white">
         <p className="text-2xl md:text-3xl text-pink-200 mb-">
           Welcome to Shreya's
