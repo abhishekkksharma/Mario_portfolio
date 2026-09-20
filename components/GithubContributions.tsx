@@ -15,7 +15,7 @@ function GithubContributions() {
   );
 
   return (
-    <section className="w-full px-4 sm:px-6 lg:px-8 py-10 lg:py-20 font-pixel">
+    <section className="w-full px-4 sm:px-6 lg:px-8 py-10 lg:py-15 font-pixel">
       <p className="flex justify-center items-center my-4 among-font text-3xl">
         My Github contributions
       </p>

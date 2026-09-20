@@ -64,7 +64,7 @@ function About() {
             <p
               className="
                 font-pixel text-2xl text-black
-                sm:pt-12 sm:text-3xl
+                sm:pt-14 sm:text-3xl
                 md:text-4xl
               "
             >

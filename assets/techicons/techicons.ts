@@ -12,6 +12,7 @@ import ReactSVG from "./React (1).svg";
 import TailwindSVG from "./Tailwind CSS (1).svg";
 import VSSVG from "./Visual Studio Code (VS Code).svg";
 import PostmanSVG from "./Postman.svg"
+import JavascriptSVG from "./JavaScript.svg"
 
 export{
     ChromeSVG,
@@ -27,5 +28,6 @@ export{
     ReactSVG,
     TailwindSVG,
     VSSVG,
-    PostmanSVG
+    PostmanSVG,
+    JavascriptSVG
 }

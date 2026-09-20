@@ -17,7 +17,8 @@ import {
   ReactSVG,
   TailwindSVG,
   VSSVG,
-  PostmanSVG
+  PostmanSVG,
+  JavascriptSVG
 } from "@/assets/techicons/techicons";
 import { Icon } from "lucide-react";
 
@@ -55,14 +56,13 @@ const skills = [
       { name: "SQL" },
       { name: "MySQL", icon: MysqlSVG },
       { name: "MongoDB", icon: MongoSVG },
-      { name: "CRUD Testing" },
     ],
   },
 
   {
     label: "Development",
     items: [
-      { name: "JavaScript" },
+      { name: "JavaScript", icon:JavascriptSVG },
       { name: "React.js", icon: ReactSVG },
       { name: "Node.js", icon: NodeSVG },
       { name: "Express.js", icon: ExpressSVG },
