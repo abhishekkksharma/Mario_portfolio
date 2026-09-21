@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Maximize2, Minimize2 } from "lucide-react";
+import { useClickSound } from "@/hooks/useClickSound";
 
 interface BrowserLayoutProps {
   children: React.ReactNode;
@@ -21,7 +22,8 @@ function SingleTabBrowser({
   const [origin, setOrigin] = useState("");
   const [isFullscreen, setIsFullscreen] = useState(false);
   const path = usePathname();
-
+  const playClickSound = useClickSound();
+ 
   useEffect(() => {
     setOrigin(window.location.origin);
   }, []);
@@ -143,6 +145,7 @@ function SingleTabBrowser({
             `}
           >
             <div
+              onClick={playClickSound}
               className={`
                 flex h-8 shrink-0 items-center justify-center
                 rounded-t-lg border-2 border-b-0 border-black
@@ -168,7 +171,10 @@ function SingleTabBrowser({
             {/* Fullscreen */}
             <button
               type="button"
-              onClick={toggleFullscreen}
+              onClick={() =>  {
+                toggleFullscreen();
+                playClickSound();
+              }}
               className={`
                 rounded border-2 border-black
                 text-xs font-bold
@@ -191,6 +197,7 @@ function SingleTabBrowser({
             <div className="z-10 shrink-0">
               <Link
                 href={`${link? link: "/"}`}
+                onClick={playClickSound}
                 className={`
                   flex h-7 w-7 items-center justify-center
                   rounded-full border-2 border-black
@@ -225,7 +232,10 @@ function SingleTabBrowser({
           <div className="flex shrink-0 items-center justify-center text-lg font-bold sm:text-2xl">
             <button
               type="button"
-              onClick={() => window.history.back()}
+              onClick={() => {
+                playClickSound();
+                window.history.back();
+              }}
               className={`
                 flex h-7 w-7 items-center justify-center
                 rounded-full
@@ -238,7 +248,10 @@ function SingleTabBrowser({
 
             <button
               type="button"
-              onClick={() => window.history.forward()}
+              onClick={() => {
+                playClickSound();
+                window.history.forward();
+              }}
               className={`
                 hidden h-7 w-7 items-center justify-center
                 rounded-full
@@ -251,7 +264,10 @@ function SingleTabBrowser({
 
             <button
               type="button"
-              onClick={() => window.location.reload()}
+              onClick={() => {
+                playClickSound();
+                window.location.reload();
+              }}
               className={`
                 flex h-7 w-7 items-center justify-center
                 rounded-full

@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Project from "./ProjectTab";
 import { Triangle } from "lucide-react";
+import { useClickSound } from "@/hooks/useClickSound";
 
 interface ProjectData {
   name: string;
@@ -19,6 +20,8 @@ interface ProjectsI {
 
 function MappedProjects({ projects }: ProjectsI) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const playClickSound = useClickSound();
+
 
   const prevProject = () => {
     if (!projects || projects.length === 0) return;
@@ -71,6 +74,7 @@ function MappedProjects({ projects }: ProjectsI) {
           "
         >
           <Triangle
+            onClick={playClickSound}
             className="
               h-8 w-8
               rotate-90
@@ -100,6 +104,7 @@ function MappedProjects({ projects }: ProjectsI) {
           "
         >
           <Triangle
+          onClick={playClickSound}
             className="
               h-8 w-8
               rotate-90

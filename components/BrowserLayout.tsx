@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { useClickSound } from "@/hooks/useClickSound"
 import { Maximize2, Minimize2 } from "lucide-react"
 
 interface BrowserLayoutProps {
@@ -12,6 +13,7 @@ interface BrowserLayoutProps {
 function BrowserLayout({ children }: BrowserLayoutProps) {
   const [origin, setOrigin] = useState("");
   const path = usePathname();
+  const playSound = useClickSound();
 
   const [isFullscreen, setIsFullscreen] = useState(false);
 
@@ -101,6 +103,7 @@ function BrowserLayout({ children }: BrowserLayoutProps) {
 
               return (
                 <Link
+                  onClick={playSound}
                   key={tabName}
                   href={tabData.link}
                   className={`
@@ -132,7 +135,10 @@ function BrowserLayout({ children }: BrowserLayoutProps) {
           <div className="flex flex-row gap-4 items-center">
             <button
               type="button"
-              onClick={toggleFullscreen}
+              onClick={() => {
+                toggleFullscreen();
+                playSound();
+              }}
               className="
                 rounded border-2 border-black
                 bg-[#e95dcc]
@@ -152,6 +158,7 @@ function BrowserLayout({ children }: BrowserLayoutProps) {
             <div className="z-10 ml-2 shrink-0 sm:ml-auto">
               <Link
                 href="/"
+                onClick={playSound}
                 className="
             flex h-7 w-7 items-center justify-center
             rounded-full border-2 border-black
@@ -185,7 +192,10 @@ function BrowserLayout({ children }: BrowserLayoutProps) {
           <div className="flex shrink-0 items-center justify-center text-lg font-bold sm:text-2xl">
             <button
               type="button"
-              onClick={() => window.history.back()}
+              onClick={() => {
+                window.history.back();
+                playSound();
+              }}
               className="
                 flex h-7 w-7 items-center justify-center
                 rounded-full
@@ -198,7 +208,9 @@ function BrowserLayout({ children }: BrowserLayoutProps) {
 
             <button
               type="button"
-              onClick={() => window.history.forward()}
+              onClick={() => {window.history.forward()
+                playSound();
+              }}
               className="
                 hidden h-7 w-7 items-center justify-center
                 rounded-full
@@ -211,7 +223,9 @@ function BrowserLayout({ children }: BrowserLayoutProps) {
 
             <button
               type="button"
-              onClick={() => window.location.reload()}
+              onClick={() => {window.location.reload();
+                playSound();
+              }}
               className="
                 flex h-7 w-7 items-center justify-center
                 rounded-full

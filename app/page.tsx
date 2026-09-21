@@ -1,3 +1,5 @@
+"use client"
+
 import HomePage from "@/components/Home";
 import Walker from "@/components/Walker";
 

@@ -1,7 +1,13 @@
+"use client"
+
 import Link from 'next/link'
 import React from 'react'
+import { useClickSound } from "@/hooks/useClickSound";
+
 
 function HomePage() {
+  const playClickSound = useClickSound();
+
   return (
     <div className="min-h-dvh flex flex-col items-center justify-center py-12 -mt-8 px-6">
       <div className="flex flex-col items-center text-center font-pixel text-white">
@@ -27,6 +33,7 @@ function HomePage() {
 
       <Link
         href={'/info'}
+        onClick={playClickSound}
         className="
           mt-10
           font-pixel text-xl md:text-2xl font-semibold
