@@ -49,76 +49,40 @@ function ProjectTab({
         <div className="mx-auto w-full max-w-5xl rounded-2xl border border-pink-200 bg-pink-50/60 p-1 shadow-inner">
           <div className="rounded-xl bg-white p-1">
 
-            <div className="relative mx-auto w-full overflow-hidden rounded-xl">
-
+            <div className="relative mx-auto flex aspect-[16/10] w-full items-center justify-center overflow-hidden rounded-xl bg-pink-50/80 p-1 sm:aspect-auto sm:h-[clamp(220px,38vh,430px)] sm:p-2">
               {link ? (
                 <Link
                   href={link}
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="flex h-full w-full items-center justify-center"
                 >
                   {images.length > 0 ? (
                     <Image
                       src={images[currentImageIndex]}
-                      className="
-                        h-[clamp(220px,38vh,430px)]
-                        w-full
-                        rounded-xl
-                        bg-pink-50
-                        object-cover
-                      "
+                      className="h-auto max-h-full w-full rounded-lg object-contain shadow-sm sm:h-auto sm:w-auto sm:max-h-full sm:max-w-full"
                       alt={`${name.toLowerCase()}-project-image`}
                     />
                   ) : (
-                    <div
-                      className="
-                        flex
-                        h-[clamp(220px,38vh,430px)]
-                        w-full
-                        items-center
-                        justify-center
-                        rounded-xl
-                        bg-pink-50
-                        font-mono
-                        text-pink-400
-                      "
-                    >
+                    <div className="flex h-full w-full items-center justify-center rounded-xl bg-pink-50 font-mono text-pink-400">
                       No Images
                     </div>
                   )}
                 </Link>
               ) : (
-                <>
+                <div className="flex h-full w-full items-center justify-center">
                   {images.length > 0 ? (
                     <Image
                       src={images[currentImageIndex]}
-                      className="
-                        h-[clamp(220px,38vh,430px)]
-                        w-full
-                        rounded-xl
-                        bg-pink-50
-                        object-cover
-                      "
+                      className="h-auto max-h-full w-full rounded-lg object-contain shadow-sm sm:h-auto sm:w-auto sm:max-h-full sm:max-w-full"
                       alt={`${name.toLowerCase()}-project-image`}
                     />
                   ) : (
-                    <div
-                      className="
-                        flex
-                        h-[clamp(220px,38vh,430px)]
-                        w-full
-                        items-center
-                        justify-center
-                        rounded-xl
-                        bg-pink-50
-                        font-mono
-                        text-pink-400
-                      "
-                    >
+                    <div className="flex h-full w-full items-center justify-center rounded-xl bg-pink-50 font-mono text-pink-400">
                       No Images
                     </div>
                   )}
-                </>
+                </div>
               )}
 
               {/* Image Navigation */}
