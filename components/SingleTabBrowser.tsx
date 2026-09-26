@@ -30,25 +30,58 @@ function SingleTabBrowser({
 
   useEffect(() => {
     const handleFullscreenChange = () => {
-      setIsFullscreen(!!document.fullscreenElement);
+      const fullscreenEl =
+        document.fullscreenElement ||
+        (document as any).webkitFullscreenElement ||
+        (document as any).mozFullScreenElement ||
+        (document as any).msFullscreenElement;
+      setIsFullscreen(!!fullscreenEl);
     };
 
     document.addEventListener("fullscreenchange", handleFullscreenChange);
+    document.addEventListener("webkitfullscreenchange", handleFullscreenChange);
+    document.addEventListener("mozfullscreenchange", handleFullscreenChange);
+    document.addEventListener("MSFullscreenChange", handleFullscreenChange);
 
     return () => {
-      document.removeEventListener(
-        "fullscreenchange",
-        handleFullscreenChange
-      );
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
+      document.removeEventListener("webkitfullscreenchange", handleFullscreenChange);
+      document.removeEventListener("mozfullscreenchange", handleFullscreenChange);
+      document.removeEventListener("MSFullscreenChange", handleFullscreenChange);
     };
   }, []);
 
   const toggleFullscreen = async () => {
     try {
-      if (!document.fullscreenElement) {
-        await document.documentElement.requestFullscreen();
+      const doc = document as any;
+      const docEl = document.documentElement as any;
+
+      const fullscreenEl =
+        doc.fullscreenElement ||
+        doc.webkitFullscreenElement ||
+        doc.mozFullScreenElement ||
+        doc.msFullscreenElement;
+
+      if (!fullscreenEl) {
+        if (docEl.requestFullscreen) {
+          await docEl.requestFullscreen();
+        } else if (docEl.webkitRequestFullscreen) {
+          await docEl.webkitRequestFullscreen();
+        } else if (docEl.mozRequestFullScreen) {
+          await docEl.mozRequestFullScreen();
+        } else if (docEl.msRequestFullscreen) {
+          await docEl.msRequestFullscreen();
+        }
       } else {
-        await document.exitFullscreen();
+        if (doc.exitFullscreen) {
+          await doc.exitFullscreen();
+        } else if (doc.webkitExitFullscreen) {
+          await doc.webkitExitFullscreen();
+        } else if (doc.mozCancelFullScreen) {
+          await doc.mozCancelFullScreen();
+        } else if (doc.msExitFullscreen) {
+          await doc.msExitFullscreen();
+        }
       }
     } catch (error) {
       console.error("Fullscreen error:", error);
@@ -111,7 +144,7 @@ function SingleTabBrowser({
         {/* Browser Header */}
         <div
           className={`
-            relative flex h-11 shrink-0 items-center
+            relative flex h-11 shrink-0 items-center justify-between
             border-b-[3px] border-black
             px-2
             ${currentTheme.header}
@@ -167,53 +200,58 @@ function SingleTabBrowser({
           </div>
 
           {/* Browser Buttons */}
-          <div className="flex flex-row items-center gap-3 sm:gap-4">
+          <div className="z-10 ml-2 flex shrink-0 items-center gap-2 sm:gap-3">
             {/* Fullscreen */}
             <button
               type="button"
-              onClick={() =>  {
+              onClick={() => {
                 toggleFullscreen();
                 playClickSound();
               }}
               className={`
-                rounded border-2 border-black
+                flex h-7 w-7 items-center justify-center
+                rounded-full border-2 border-black
                 text-xs font-bold
                 transition-colors
+                active:scale-95
                 ${currentTheme.button}
                 ${currentTheme.hoverButton}
+                sm:h-8 sm:w-8
+                sm:border-[3px]
               `}
               aria-label={
                 isFullscreen ? "Exit fullscreen" : "Enter fullscreen"
               }
+              title={isFullscreen ? "Exit Fullscreen" : "Fullscreen"}
             >
               {isFullscreen ? (
-                <Minimize2 className="h-6 w-6 p-0.5 text-black" />
+                <Minimize2 className="h-3.5 w-3.5 text-black sm:h-4 sm:w-4" />
               ) : (
-                <Maximize2 className="h-6 w-6 p-0.5 text-black" />
+                <Maximize2 className="h-3.5 w-3.5 text-black sm:h-4 sm:w-4" />
               )}
             </button>
 
             {/* Close */}
-            <div className="z-10 shrink-0">
-              <Link
-                href={`${link? link: "/"}`}
-                onClick={playClickSound}
-                className={`
-                  flex h-7 w-7 items-center justify-center
-                  rounded-full border-2 border-black
-                  text-xs font-bold
-                  transition-colors
-                  ${currentTheme.button}
-                  ${currentTheme.hoverButton}
+            <Link
+              href={`${link ? link : "/"}`}
+              onClick={playClickSound}
+              className={`
+                flex h-7 w-7 items-center justify-center
+                rounded-full border-2 border-black
+                text-xs font-bold
+                transition-colors
+                active:scale-95
+                ${currentTheme.button}
+                ${currentTheme.hoverButton}
 
-                  sm:h-8 sm:w-8
-                  sm:border-[3px]
-                  sm:text-base
-                `}
-              >
-                X
-              </Link>
-            </div>
+                sm:h-8 sm:w-8
+                sm:border-[3px]
+                sm:text-base
+              `}
+              title="Close"
+            >
+              X
+            </Link>
           </div>
         </div>
 

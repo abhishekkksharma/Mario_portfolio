@@ -111,7 +111,7 @@ function SkillItem({
 
 function TechStack() {
   return (
-    <div className="px-20 py-6">
+    <div className="px-4 lg:px-20 py-2 lg:py-6">
       {skills.map((skill) => (
         <div
           key={skill.label}

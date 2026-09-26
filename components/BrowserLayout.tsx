@@ -1,10 +1,10 @@
 "use client";
 
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { useClickSound } from "@/hooks/useClickSound"
-import { Maximize2, Minimize2 } from "lucide-react"
+import { useClickSound } from "@/hooks/useClickSound";
+import { Maximize2, Minimize2 } from "lucide-react";
 
 interface BrowserLayoutProps {
   children: React.ReactNode;
@@ -17,14 +17,64 @@ function BrowserLayout({ children }: BrowserLayoutProps) {
 
   const [isFullscreen, setIsFullscreen] = useState(false);
 
+  useEffect(() => {
+    setOrigin(window.location.origin);
+  }, []);
+
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      const fullscreenEl =
+        document.fullscreenElement ||
+        (document as any).webkitFullscreenElement ||
+        (document as any).mozFullScreenElement ||
+        (document as any).msFullscreenElement;
+      setIsFullscreen(!!fullscreenEl);
+    };
+
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+    document.addEventListener("webkitfullscreenchange", handleFullscreenChange);
+    document.addEventListener("mozfullscreenchange", handleFullscreenChange);
+    document.addEventListener("MSFullscreenChange", handleFullscreenChange);
+
+    return () => {
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
+      document.removeEventListener("webkitfullscreenchange", handleFullscreenChange);
+      document.removeEventListener("mozfullscreenchange", handleFullscreenChange);
+      document.removeEventListener("MSFullscreenChange", handleFullscreenChange);
+    };
+  }, []);
+
   const toggleFullscreen = async () => {
     try {
-      if (!document.fullscreenElement) {
-        await document.documentElement.requestFullscreen();
-        setIsFullscreen(true);
+      const doc = document as any;
+      const docEl = document.documentElement as any;
+
+      const fullscreenEl =
+        doc.fullscreenElement ||
+        doc.webkitFullscreenElement ||
+        doc.mozFullScreenElement ||
+        doc.msFullscreenElement;
+
+      if (!fullscreenEl) {
+        if (docEl.requestFullscreen) {
+          await docEl.requestFullscreen();
+        } else if (docEl.webkitRequestFullscreen) {
+          await docEl.webkitRequestFullscreen();
+        } else if (docEl.mozRequestFullScreen) {
+          await docEl.mozRequestFullScreen();
+        } else if (docEl.msRequestFullscreen) {
+          await docEl.msRequestFullscreen();
+        }
       } else {
-        await document.exitFullscreen();
-        setIsFullscreen(false);
+        if (doc.exitFullscreen) {
+          await doc.exitFullscreen();
+        } else if (doc.webkitExitFullscreen) {
+          await doc.webkitExitFullscreen();
+        } else if (doc.mozCancelFullScreen) {
+          await doc.mozCancelFullScreen();
+        } else if (doc.msExitFullscreen) {
+          await doc.msExitFullscreen();
+        }
       }
     } catch (error) {
       console.error("Fullscreen error:", error);
@@ -46,12 +96,8 @@ function BrowserLayout({ children }: BrowserLayoutProps) {
     },
   };
 
-  useEffect(() => {
-    setOrigin(window.location.origin);
-  }, []);
-
   return (
-    <div className="flex h-dvh w-full items-center justify-center overflow-hidden p-2 sm:p-4 lg:py-0 py-10">
+    <div className="flex h-dvh w-full items-center justify-center overflow-hidden p-2 py-10 sm:p-4 lg:py-0">
       <div
         className="
           relative
@@ -70,7 +116,7 @@ function BrowserLayout({ children }: BrowserLayoutProps) {
         {/* Browser Header */}
         <div
           className="
-            relative flex h-11 shrink-0 items-center
+            relative flex h-11 shrink-0 items-center justify-between
             border-b-[3px] border-black
             bg-[#d936b8]
             px-2
@@ -131,8 +177,8 @@ function BrowserLayout({ children }: BrowserLayoutProps) {
             })}
           </div>
 
-          {/*  Buttons */}
-          <div className="flex flex-row gap-4 items-center">
+          {/* Buttons */}
+          <div className="z-10 ml-2 flex shrink-0 items-center gap-2 sm:gap-3">
             <button
               type="button"
               onClick={() => {
@@ -140,40 +186,45 @@ function BrowserLayout({ children }: BrowserLayoutProps) {
                 playSound();
               }}
               className="
-                rounded border-2 border-black
+                flex h-7 w-7 items-center justify-center
+                rounded-full border-2 border-black
                 bg-[#e95dcc]
                 text-xs font-bold
                 transition-colors
                 hover:bg-[#f178d7]
+                active:scale-95
+                sm:h-8 sm:w-8
+                sm:border-[3px]
               "
               aria-label={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
+              title={isFullscreen ? "Exit Fullscreen" : "Fullscreen"}
             >
               {isFullscreen ? (
-                <Minimize2 className="w-6 h-6 p-0.5 text-black" />
+                <Minimize2 className="h-3.5 w-3.5 text-black sm:h-4 sm:w-4" />
               ) : (
-                <Maximize2 className="w-6 h-6 p-0.5 text-black" />
+                <Maximize2 className="h-3.5 w-3.5 text-black sm:h-4 sm:w-4" />
               )}
             </button>
 
-            <div className="z-10 ml-2 shrink-0 sm:ml-auto">
-              <Link
-                href="/"
-                onClick={playSound}
-                className="
-            flex h-7 w-7 items-center justify-center
-            rounded-full border-2 border-black
-            bg-[#e95dcc]
-            text-xs font-bold
-            transition-colors
-            hover:bg-[#f178d7]
-            sm:h-8 sm:w-8
-            sm:border-[3px]
-            sm:text-base
-          "
-              >
-                X
-              </Link>
-            </div>
+            <Link
+              href="/"
+              onClick={playSound}
+              className="
+                flex h-7 w-7 items-center justify-center
+                rounded-full border-2 border-black
+                bg-[#e95dcc]
+                text-xs font-bold
+                transition-colors
+                hover:bg-[#f178d7]
+                active:scale-95
+                sm:h-8 sm:w-8
+                sm:border-[3px]
+                sm:text-base
+              "
+              title="Close"
+            >
+              X
+            </Link>
           </div>
         </div>
 
@@ -208,7 +259,8 @@ function BrowserLayout({ children }: BrowserLayoutProps) {
 
             <button
               type="button"
-              onClick={() => {window.history.forward()
+              onClick={() => {
+                window.history.forward();
                 playSound();
               }}
               className="
@@ -223,7 +275,8 @@ function BrowserLayout({ children }: BrowserLayoutProps) {
 
             <button
               type="button"
-              onClick={() => {window.location.reload();
+              onClick={() => {
+                window.location.reload();
                 playSound();
               }}
               className="
@@ -309,3 +362,4 @@ function BrowserLayout({ children }: BrowserLayoutProps) {
 }
 
 export default BrowserLayout;
+
