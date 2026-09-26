@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
-import { SquareArrowUpRight, Link2 } from "lucide-react";
+import { Link2 } from "lucide-react";
 import GithubSVG from "@/assets/github (1).svg";
 
 export interface ProjectProps {
@@ -27,69 +27,120 @@ function ProjectTab({
 
   const nextImage = () => {
     if (images.length === 0) return;
-    setCurrentImageIndex((prev) => (prev + 1) % images.length);
+
+    setCurrentImageIndex(
+      (prev) => (prev + 1) % images.length
+    );
   };
 
   const prevImage = () => {
     if (images.length === 0) return;
+
     setCurrentImageIndex(
       (prev) => (prev - 1 + images.length) % images.length
     );
   };
 
   return (
-    <div className="flex flex-row justify-between rounded-md bg-transparent p-4 font-pixel">
-      <div className="w-full overflow-hidden rounded-md bg-transparent p-2">
-        <div className="rounded-2xl border border-pink-200 bg-pink-50/60 p-1 shadow-inner">
+    <div className="w-full overflow-hidden font-pixel">
+      <div className="w-full px-2">
+
+        {/* Image */}
+        <div className="mx-auto w-full max-w-5xl rounded-2xl border border-pink-200 bg-pink-50/60 p-1 shadow-inner">
           <div className="rounded-xl bg-white p-1">
-            {/* Single image with arrows */}
-            <div className="relative overflow-hidden rounded-xl">
+
+            <div className="relative mx-auto w-full overflow-hidden rounded-xl">
+
               {link ? (
                 <Link
                   href={link}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  {/* <SquareArrowUpRight className="absolute right-2 top-2 z-10 m-2 h-6 w-6 text-pink-950 transition-colors hover:text-pink-600" /> */}
-
-                  {images && images.length > 0 ? (
+                  {images.length > 0 ? (
                     <Image
                       src={images[currentImageIndex]}
-                      className="aspect-video w-full rounded-xl bg-pink-50 object-cover"
+                      className="
+                        h-[clamp(220px,38vh,430px)]
+                        w-full
+                        rounded-xl
+                        bg-pink-50
+                        object-cover
+                      "
                       alt={`${name.toLowerCase()}-project-image`}
                     />
                   ) : (
-                    <div className="flex h-[30vh] w-full items-center justify-center bg-pink-50 font-mono text-pink-400">
+                    <div
+                      className="
+                        flex
+                        h-[clamp(220px,38vh,430px)]
+                        w-full
+                        items-center
+                        justify-center
+                        rounded-xl
+                        bg-pink-50
+                        font-mono
+                        text-pink-400
+                      "
+                    >
                       No Images
                     </div>
                   )}
                 </Link>
               ) : (
                 <>
-                  {images && images.length > 0 ? (
+                  {images.length > 0 ? (
                     <Image
                       src={images[currentImageIndex]}
-                      className="aspect-video w-full rounded-xl bg-pink-50 object-cover"
+                      className="
+                        h-[clamp(220px,38vh,430px)]
+                        w-full
+                        rounded-xl
+                        bg-pink-50
+                        object-cover
+                      "
                       alt={`${name.toLowerCase()}-project-image`}
                     />
                   ) : (
-                    <div className="flex h-[30vh] w-full items-center justify-center bg-pink-50 font-mono text-pink-400">
+                    <div
+                      className="
+                        flex
+                        h-[clamp(220px,38vh,430px)]
+                        w-full
+                        items-center
+                        justify-center
+                        rounded-xl
+                        bg-pink-50
+                        font-mono
+                        text-pink-400
+                      "
+                    >
                       No Images
                     </div>
                   )}
                 </>
               )}
 
-              {/* Navigation Arrows */}
-              {images && images.length > 1 && (
+              {/* Image Navigation */}
+              {images.length > 1 && (
                 <>
+                  {/* Previous Image */}
                   <button
-                    onClick={prevImage}
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      prevImage();
+                    }}
                     className="
-                      absolute left-2 top-1/2 z-10
+                      absolute
+                      left-3
+                      top-1/2
+                      z-10
                       -translate-y-1/2
                       rounded-full
-                      border border-pink-300
+                      border
+                      border-pink-300
                       bg-white/90
                       p-2
                       text-pink-900
@@ -116,13 +167,23 @@ function ProjectTab({
                     </svg>
                   </button>
 
+                  {/* Next Image */}
                   <button
-                    onClick={nextImage}
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      nextImage();
+                    }}
                     className="
-                      absolute right-2 top-1/2 z-10
+                      absolute
+                      right-3
+                      top-1/2
+                      z-10
                       -translate-y-1/2
                       rounded-full
-                      border border-pink-300
+                      border
+                      border-pink-300
                       bg-white/90
                       p-2
                       text-pink-900
@@ -149,17 +210,38 @@ function ProjectTab({
                     </svg>
                   </button>
 
-                  {/* Dot indicators */}
-                  <div className="absolute bottom-2 left-1/2 z-10 flex -translate-x-1/2 gap-2">
+                  {/* Image Dots */}
+                  <div
+                    className="
+                      absolute
+                      bottom-3
+                      left-1/2
+                      z-10
+                      flex
+                      -translate-x-1/2
+                      gap-2
+                    "
+                  >
                     {images.map((_, index) => (
                       <button
                         key={index}
-                        onClick={() => setCurrentImageIndex(index)}
-                        className={`h-2 rounded-full transition-all duration-200 ${
-                          index === currentImageIndex
-                            ? "w-6 bg-pink-600"
-                            : "w-2 bg-pink-300 hover:bg-pink-400"
-                        }`}
+                        type="button"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          setCurrentImageIndex(index);
+                        }}
+                        className={`
+                          h-2
+                          rounded-full
+                          transition-all
+                          duration-200
+                          ${
+                            index === currentImageIndex
+                              ? "w-7 bg-pink-600"
+                              : "w-2 bg-pink-300 hover:bg-pink-400"
+                          }
+                        `}
                         aria-label={`Go to image ${index + 1}`}
                       />
                     ))}
@@ -171,32 +253,57 @@ function ProjectTab({
         </div>
 
         {/* Project Details */}
-        <div className="mt-3 min-w-0 flex-1 px-4">
-          <div className="flex items-center justify-between">
-            <p className="text-2xl font-bold tracking-widest text-pink-950">
+        <div className="mx-auto mt-2 w-full max-w-5xl px-2 sm:px-4">
+
+          {/* Name + Links */}
+          <div className="flex items-center justify-between gap-4">
+
+            <p className="min-w-0 truncate text-xl font-bold tracking-widest text-pink-950 sm:text-2xl">
               {name}
             </p>
 
-            <div className="flex gap-6 px-4">
+            <div className="flex shrink-0 items-center gap-4 sm:gap-6">
+
+              {/* Website */}
               {link && (
                 <Link
                   href={link}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label={`${name} website`}
                 >
-                  <Link2 className="h-6 w-6 text-pink-800 transition-colors hover:text-pink-500" />
+                  <Link2
+                    className="
+                      h-5
+                      w-5
+                      text-pink-800
+                      transition-colors
+                      hover:text-pink-500
+                      sm:h-6
+                      sm:w-6
+                    "
+                  />
                 </Link>
               )}
 
+              {/* GitHub */}
               {githubLink && (
                 <Link
                   href={githubLink}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label={`${name} GitHub`}
                 >
                   <Image
                     src={GithubSVG}
-                    className="h-6 w-6 rounded-full hover:bg-pink-100"
+                    className="
+                      h-5
+                      w-5
+                      rounded-full
+                      hover:bg-pink-100
+                      sm:h-6
+                      sm:w-6
+                    "
                     alt="github"
                   />
                 </Link>
@@ -205,16 +312,19 @@ function ProjectTab({
           </div>
 
           {/* Tech Stack */}
-          {tech && tech.length > 0 && (
-            <div className="mb-3 mt-2 flex flex-wrap gap-2">
+          {tech.length > 0 && (
+            <div className="mb-2 mt-2 flex flex-wrap gap-2">
               {tech.map((tag) => (
                 <span
                   key={tag}
                   className="
+                    select-none
                     rounded-md
-                    border border-pink-200
+                    border
+                    border-pink-200
                     bg-pink-100
-                    px-2.5 py-0.5
+                    px-2.5
+                    py-0.5
                     font-mono
                     text-xs
                     tracking-wider
@@ -224,7 +334,6 @@ function ProjectTab({
                     hover:border-pink-300
                     hover:bg-pink-200
                     hover:text-pink-950
-                    select-none
                   "
                 >
                   {tag}
@@ -234,9 +343,18 @@ function ProjectTab({
           )}
 
           {/* Description */}
-          <p className="mt-1 font-mono text-sm leading-relaxed text-pink-950/75">
+          {/* <p
+            className="
+              mt-1
+              line-clamp-2
+              font-mono
+              text-sm
+              leading-relaxed
+              text-pink-950/75
+            "
+          >
             {content}
-          </p>
+          </p> */}
         </div>
       </div>
     </div>

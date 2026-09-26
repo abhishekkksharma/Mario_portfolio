@@ -22,9 +22,10 @@ function MappedProjects({ projects }: ProjectsI) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const playClickSound = useClickSound();
 
-
   const prevProject = () => {
     if (!projects || projects.length === 0) return;
+
+    playClickSound();
 
     setCurrentIndex(
       (prev) => (prev - 1 + projects.length) % projects.length
@@ -34,12 +35,14 @@ function MappedProjects({ projects }: ProjectsI) {
   const nextProject = () => {
     if (!projects || projects.length === 0) return;
 
+    playClickSound();
+
     setCurrentIndex((prev) => (prev + 1) % projects.length);
   };
 
   if (!projects || projects.length === 0) {
     return (
-      <div className="flex items-center justify-center font-mono text-pink-400">
+      <div className="flex h-full items-center justify-center font-mono text-pink-400">
         No projects available
       </div>
     );
@@ -48,19 +51,49 @@ function MappedProjects({ projects }: ProjectsI) {
   const activeProject = projects[currentIndex];
 
   return (
-    <div className="flex w-full flex-col justify-center gap-3 px-2 sm:gap-4 sm:px-4 md:px-8 lg:px-20">
-      <Project
-        key={activeProject.name}
-        name={activeProject.name}
-        content={activeProject.content}
-        link={activeProject.link}
-        githubLink={activeProject.githubLink}
-        images={activeProject.images}
-        tech={activeProject.tech}
-      />
+    <div
+      className="
+        pt-4
+        relative
+        flex
+        w-full
+        flex-col
+        overflow-hidden
+        px-3
+        sm:px-5
+        md:px-8
+        lg:px-12
+      "
+    >
+      {/* Project */}
+      <div className="min-h-0 flex-1 overflow-hidden">
+        <Project
+          key={activeProject.name}
+          name={activeProject.name}
+          content={activeProject.content}
+          link={activeProject.link}
+          githubLink={activeProject.githubLink}
+          images={activeProject.images}
+          tech={activeProject.tech}
+        />
+      </div>
 
-      <div className="flex items-center justify-between gap-8 px-4 sm:gap-12 sm:px-8 md:gap-16 md:px-22">
-        {/* Previous Project */}
+      {/* Project Navigation */}
+      <div
+        className="
+          flex
+          h-16
+          shrink-0
+          items-center
+          justify-between
+          px-8
+          sm:h-20
+          sm:px-12
+          md:px-16
+          lg:px-20
+        "
+      >
+        {/* Previous */}
         <button
           type="button"
           onClick={prevProject}
@@ -68,15 +101,16 @@ function MappedProjects({ projects }: ProjectsI) {
           className="
             cursor-pointer
             rounded-full
-            p-1
-            transition-all
+            p-2
+            transition-transform
             duration-200
+            hover:scale-110
           "
         >
           <Triangle
-            onClick={playClickSound}
             className="
-              h-8 w-8
+              h-8
+              w-8
               rotate-90
               scale-y-[-1]
               fill-pink-300
@@ -85,12 +119,39 @@ function MappedProjects({ projects }: ProjectsI) {
               duration-200
               hover:fill-pink-600
               hover:text-pink-600
-              sm:h-10 sm:w-10
+              sm:h-10
+              sm:w-10
             "
           />
         </button>
 
-        {/* Next Project */}
+        {/* Project Indicator */}
+        <div className="flex items-center gap-2">
+          {projects.map((_, index) => (
+            <button
+              key={index}
+              type="button"
+              onClick={() => {
+                playClickSound();
+                setCurrentIndex(index);
+              }}
+              aria-label={`Go to project ${index + 1}`}
+              className={`
+                h-2
+                rounded-full
+                transition-all
+                duration-200
+                ${
+                  index === currentIndex
+                    ? "w-7 bg-pink-600"
+                    : "w-2 bg-pink-300 hover:bg-pink-400"
+                }
+              `}
+            />
+          ))}
+        </div>
+
+        {/* Next */}
         <button
           type="button"
           onClick={nextProject}
@@ -98,15 +159,16 @@ function MappedProjects({ projects }: ProjectsI) {
           className="
             cursor-pointer
             rounded-full
-            p-1
-            transition-all
+            p-2
+            transition-transform
             duration-200
+            hover:scale-110
           "
         >
           <Triangle
-          onClick={playClickSound}
             className="
-              h-8 w-8
+              h-8
+              w-8
               rotate-90
               fill-pink-300
               text-pink-900
@@ -114,7 +176,8 @@ function MappedProjects({ projects }: ProjectsI) {
               duration-200
               hover:fill-pink-600
               hover:text-pink-600
-              sm:h-10 sm:w-10
+              sm:h-10
+              sm:w-10
             "
           />
         </button>

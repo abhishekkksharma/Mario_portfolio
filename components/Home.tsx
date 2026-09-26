@@ -11,7 +11,7 @@ function HomePage() {
   return (
     <div className="min-h-dvh flex flex-col items-center justify-center py-12 -mt-8 px-6">
       <div className="flex flex-col items-center text-center font-pixel text-white">
-        <p className="text-2xl md:text-3xl text-pink-200 mb-">
+        <p className="text-2xl md:text-3xl text-pink-200">
           Welcome to Shreya's
         </p>
 

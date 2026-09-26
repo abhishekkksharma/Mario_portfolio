@@ -4,11 +4,11 @@ import WalkerGif from "@/assets/walker.gif";
 
 function Walker() {
   return (
-    <div className="fixed inset-x-0 bottom-26 h-25 overflow-hidden pointer-events-none">
+    <div className="fixed inset-x-0 bottom-[5%] h-25 overflow-hidden pointer-events-none">
       <Image
         src={WalkerGif}
         alt="walker"
-        className="absolute h-28 w-auto animate-walker"
+        className="absolute h-28 w-auto animate-walker "
       />
     </div>
   );

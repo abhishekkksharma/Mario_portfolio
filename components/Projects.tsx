@@ -1,5 +1,5 @@
 import MappedProjects from './MappedProjets';
-import {StackRazeImg1,StackRazeImg2} from "@/assets/Projects/projectImages"
+import {StackRazeImg1,StackRazeImg2,AtomImg1,AtomImg2,AtomImg3} from "@/assets/Projects/projectImages"
 
 const projects = [
   {
@@ -9,7 +9,7 @@ const projects = [
     link: "https://mental-health-management-system-chi.vercel.app/",
     githubLink: "https://github.com/shr5ya/ATOM---Mental-Health-Ecosystem",
     tech: ["React.js", "Tailwind CSS", "Supabase"],
-    images: [],
+    images: [AtomImg1,AtomImg2,AtomImg3],
   },
   {
     name: "Stackraze",
