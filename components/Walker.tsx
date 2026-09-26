@@ -4,7 +4,7 @@ import WalkerGif from "@/assets/walker.gif";
 
 function Walker() {
   return (
-    <div className="fixed inset-x-0 bottom-[5%] h-25 overflow-hidden pointer-events-none">
+    <div className="fixed inset-x-0 bottom-[9%] h-25 overflow-hidden pointer-events-none">
       <Image
         src={WalkerGif}
         alt="walker"
