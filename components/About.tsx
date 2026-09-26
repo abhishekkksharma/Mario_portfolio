@@ -28,11 +28,12 @@ function About() {
 
         {/* Profile */}
         <div className="px-4 sm:px-6">
-          <div className="flex flex-col items-center text-center sm:flex-row sm:items-end sm:text-left gap-3 -mt-14 sm:-mt-16">
+          <div className="flex flex-col items-center text-center sm:flex-row sm:items-end sm:text-left gap-3 sm:gap-4">
             <div
               className="
                 relative h-28 w-28 shrink-0
-                rounded-full border-4 border-white bg-white 
+                -mt-14 sm:-mt-16
+                rounded-full border-4 border-white bg-white shadow-sm
                 sm:h-32 sm:w-32
                 md:h-34 md:w-34
               "
@@ -46,13 +47,13 @@ function About() {
               />
             </div>
 
-            <div className="pb-1">
-              <h1 className="font-pixel text-xl font text-black sm:text-2xl md:text-3xl leading-tight">
+            <div className="pt-2 sm:pb-2">
+              <h1 className="font-pixel text-xl font- text-black sm:text-2xl md:text-3xl leading-tight">
                 Shreya Yadav
               </h1>
 
               <p className="font-pixel text-xs text-zinc-700 sm:text-sm md:text-base mt-0.5">
-                Software Development Eng. in Test
+                Software Development Engineer in Test
               </p>
             </div>
           </div>

@@ -60,9 +60,9 @@ function Contact() {
   };
 
   return (
-    <div className="mx-auto w-full max-w-2xl px-4 py-2 font-pixel sm:px-6 sm:py-3 md:px-8">
+    <div className="mx-auto w-full max-w-2xl px-4 py-2 font-pixel sm:px-6 sm:py-4 md:px-8">
       {/* Header */}
-      <div className="mb-2 flex items-center gap-3 border-b-2 border-pink-200 pb-1 sm:mb-3">
+      {/* <div className="mb-2 flex items-center gap-3 border-b-2 border-pink-200 pb-1 sm:mb-3">
         <Image
           className="h-9 w-9 shrink-0 object-contain sm:h-10 sm:w-10"
           src={MessageIMG}
@@ -72,7 +72,7 @@ function Contact() {
         <h2 className="text-2xl font-bold tracking-wide text-pink-950 sm:text-3xl">
           Contact
         </h2>
-      </div>
+      </div> */}
 
       {/* Social Links */}
       <div className="mb-4 flex flex-wrap gap-2 sm:mb-5 sm:gap-2.5">
